@@ -1,0 +1,325 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DMARKETER | Digital Growth Agency</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Tailwind Config for Custom Colors/Fonts -->
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        slate: {
+                            950: '#020617', 
+                        }
+                    },
+                    animation: {
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'pulse-slow': 'pulse 4s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'blob': 'blob 7s infinite',
+                    },
+                    keyframes: {
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        blob: {
+                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
+                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
+                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
+                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #020617;
+            color: #e2e8f0;
+        }
+        
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f172a; }
+        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
+
+        /* Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #06b6d4;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(6,182,212,0.5);
+            cursor: pointer;
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #334155;
+            border-radius: 2px;
+        }
+
+        /* Toggle Switch Checkbox Logic */
+        .toggle-checkbox:checked {
+            right: 0;
+            border-color: #06b6d4;
+        }
+        .toggle-checkbox:checked + .toggle-label {
+            background-color: #06b6d4;
+        }
+        
+        /* Glow Text Utilities */
+        .glow-text {
+            text-shadow: 0 0 30px rgba(6,182,212,0.3);
+        }
+        .neon-border {
+            box-shadow: 0 0 10px rgba(6,182,212,0.1), inset 0 0 20px rgba(6,182,212,0.05);
+        }
+    </style>
+</head>
+<body class="antialiased overflow-x-hidden">
+
+    <!-- Background Effects -->
+    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
+        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[120px] animate-blob"></div>
+        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/20 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+        <div class="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-cyan-600/10 rounded-full blur-[100px] animate-blob animation-delay-4000"></div>
+    </div>
+
+    <!-- Navigation -->
+    <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5">
+        <div class="container mx-auto px-6 flex justify-between items-center">
+            <div class="flex items-center gap-2">
+                <div class="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-600 rounded flex items-center justify-center shadow-lg shadow-cyan-500/20">
+                    <span class="font-bold text-white">D</span>
+                </div>
+                <span class="text-xl font-bold tracking-wider text-white">DMARKETER</span>
+            </div>
+
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-8">
+                <a href="#plans" class="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium uppercase tracking-wide">Plans</a>
+                <a href="#builder" class="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium uppercase tracking-wide">Builder</a>
+                <a href="#contact" class="text-slate-300 hover:text-cyan-400 transition-colors text-sm font-medium uppercase tracking-wide">Contact</a>
+                <button onclick="document.getElementById('contact').scrollIntoView()" class="px-5 py-2 bg-white/10 hover:bg-white/20 border border-white/10 rounded-full text-white text-sm font-medium transition-all backdrop-blur-sm">
+                    Get Audit
+                </button>
+            </div>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-btn" class="md:hidden text-white">
+                <i data-lucide="menu"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu Dropdown -->
+        <div id="mobile-menu" class="hidden md:hidden absolute top-full left-0 right-0 bg-slate-900/95 backdrop-blur-xl border-b border-white/10 p-6 flex flex-col gap-4 shadow-2xl">
+            <a href="#plans" class="text-slate-300 hover:text-cyan-400 py-2 text-lg font-medium">Plans</a>
+            <a href="#builder" class="text-slate-300 hover:text-cyan-400 py-2 text-lg font-medium">Builder</a>
+            <a href="#contact" class="text-slate-300 hover:text-cyan-400 py-2 text-lg font-medium">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <div class="container mx-auto px-6 relative z-10 text-center">
+            <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-cyan-500/10 border border-cyan-500/20 text-cyan-400 text-sm font-medium mb-8 animate-fade-in-up">
+                <span class="relative flex h-2 w-2">
+                    <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                    <span class="relative inline-flex rounded-full h-2 w-2 bg-cyan-500"></span>
+                </span>
+                Accepting New Clients for Dec 2025
+            </div>
+
+            <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold text-white mb-6 leading-tight animate-fade-in-up" style="animation-delay: 0.1s;">
+                Marketing Plans That <br/>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500 glow-text">
+                    Grow With Your Business
+                </span>
+            </h1>
+
+            <p class="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto mb-10 animate-fade-in-up" style="animation-delay: 0.2s;">
+                Transparent pricing. Custom control. Real results. 
+                Stop guessing and start scaling with a partner that cares about your ROI.
+            </p>
+
+            <div class="flex flex-col md:flex-row items-center justify-center gap-4 animate-fade-in-up" style="animation-delay: 0.3s;">
+                <a href="#plans" class="w-full md:w-auto px-8 py-4 bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-white font-bold rounded-lg shadow-[0_0_20px_rgba(6,182,212,0.5)] transition-all hover:scale-105 active:scale-95 text-center">
+                    View Monthly Plans
+                </a>
+                <a href="#builder" class="w-full md:w-auto px-8 py-4 bg-slate-800/50 hover:bg-slate-700/50 border border-white/10 text-white font-medium rounded-lg backdrop-blur-sm transition-all hover:scale-105 active:scale-95 flex items-center justify-center gap-2 group">
+                    <i data-lucide="layout" size="18"></i>
+                    Build Your Own Plan
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Fixed Plans Section -->
+    <section id="plans" class="py-20 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Fixed Monthly <span class="text-blue-500">Power Plans</span></h2>
+                <p class="text-slate-400">Proven strategies packaged for instant impact.</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+                
+                <!-- Basic Plan -->
+                <div class="relative bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 flex flex-col h-full hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Basic Plan</h3>
+                        <div class="flex items-end gap-2 mb-1">
+                            <span class="text-3xl font-bold text-white">₹15,000</span>
+                            <span class="text-slate-500 text-sm mb-1">/month</span>
+                        </div>
+                        <div class="text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 inline-block px-2 py-1 rounded">
+                            Value: ₹19,500+
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-slate-400 w-4 h-4 mt-1"></i> Social Media Management (8 posts)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-slate-400 w-4 h-4 mt-1"></i> Reel Creation (4 reels)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-slate-400 w-4 h-4 mt-1"></i> Creative Direction & Hook Writing</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-slate-400 w-4 h-4 mt-1"></i> Google Business Profile Optimization</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-slate-400 w-4 h-4 mt-1"></i> Monthly Performance Report</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-lg font-bold bg-slate-800 hover:bg-slate-700 text-white border border-white/5 transition-all">Start Basic</button>
+                </div>
+
+                <!-- Essential Plan -->
+                <div class="relative bg-slate-900/40 backdrop-blur-xl border border-blue-500/50 shadow-[0_0_40px_rgba(59,130,246,0.15)] rounded-2xl p-6 md:p-8 flex flex-col h-full hover:border-blue-400 transition-all duration-300 hover:-translate-y-2 transform scale-105 md:scale-110 z-10">
+                    <div class="absolute top-0 right-0 bg-blue-600 text-white text-xs font-bold px-3 py-1 rounded-bl-lg">MOST POPULAR</div>
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Essential Plan</h3>
+                        <div class="flex items-end gap-2 mb-1">
+                            <span class="text-3xl font-bold text-white">₹22,000</span>
+                            <span class="text-slate-500 text-sm mb-1">/month</span>
+                        </div>
+                        <div class="text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 inline-block px-2 py-1 rounded">
+                            Value: ₹29,500+
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><div class="bg-blue-500/20 rounded-full p-0.5"><i data-lucide="check" class="text-blue-400 w-3 h-3"></i></div> Social Media Management (12 posts)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><div class="bg-blue-500/20 rounded-full p-0.5"><i data-lucide="check" class="text-blue-400 w-3 h-3"></i></div> Reel Creation (8 reels)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><div class="bg-blue-500/20 rounded-full p-0.5"><i data-lucide="check" class="text-blue-400 w-3 h-3"></i></div> Reel Strategy & Trend Research</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><div class="bg-blue-500/20 rounded-full p-0.5"><i data-lucide="check" class="text-blue-400 w-3 h-3"></i></div> Paid Ads Setup (Structure + Audience)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><div class="bg-blue-500/20 rounded-full p-0.5"><i data-lucide="check" class="text-blue-400 w-3 h-3"></i></div> Detailed Monthly Report</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-lg font-bold bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/25 transition-all">Choose Essential</button>
+                </div>
+
+                <!-- Professional Plan -->
+                <div class="relative bg-slate-900/40 backdrop-blur-xl border border-white/10 rounded-2xl p-6 md:p-8 flex flex-col h-full hover:border-white/20 transition-all duration-300 hover:-translate-y-2 group">
+                    <div class="mb-6">
+                        <h3 class="text-xl font-semibold text-white mb-2">Professional Plan</h3>
+                        <div class="flex items-end gap-2 mb-1">
+                            <span class="text-3xl font-bold text-white">₹42,000</span>
+                            <span class="text-slate-500 text-sm mb-1">/month</span>
+                        </div>
+                        <div class="text-xs font-medium text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 inline-block px-2 py-1 rounded">
+                            Value: ₹65,000+
+                        </div>
+                    </div>
+                    <ul class="space-y-4 mb-8 flex-1">
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-purple-400 w-4 h-4 mt-1"></i> Social Media Management (14 posts)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-purple-400 w-4 h-4 mt-1"></i> High-Quality Reel Creation (14 reels)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-purple-400 w-4 h-4 mt-1"></i> Meta Ads Management (Lead Focused)</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-purple-400 w-4 h-4 mt-1"></i> Lead Handling System + Tracking</li>
+                        <li class="flex items-start gap-3 text-slate-300 text-sm"><i data-lucide="check" class="text-purple-400 w-4 h-4 mt-1"></i> 3 Influencer Videos (FREE)</li>
+                    </ul>
+                    <button class="w-full py-3 rounded-lg font-bold bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-500 hover:to-pink-500 text-white shadow-lg shadow-purple-600/25 transition-all">Go Professional</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Plan Builder Section -->
+    <section id="builder" class="py-20 bg-slate-950 relative border-t border-white/5">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Build Your Own <span class="text-cyan-400">Marketing Plan</span></h2>
+                <p class="text-slate-400">Select exactly what you need. Pay only for what you get.</p>
+            </div>
+
+            <div class="grid lg:grid-cols-3 gap-8">
+                <!-- Services Categories Container -->
+                <div class="lg:col-span-2 space-y-4" id="categories-container">
+                    <!-- Categories will be injected here via JS -->
+                </div>
+
+                <!-- Sticky Total Panel -->
+                <div class="lg:col-span-1">
+                    <div class="sticky top-24 bg-slate-900 border border-cyan-500/30 rounded-2xl p-6 shadow-[0_0_30px_rgba(6,182,212,0.1)] backdrop-blur-xl">
+                        <h3 class="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                            <i data-lucide="star" class="text-yellow-400 fill-yellow-400"></i>
+                            Your Plan Summary
+                        </h3>
+                        
+                        <div id="cart-items" class="space-y-3 mb-6 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar min-h-[50px]">
+                            <p class="text-slate-500 text-sm italic text-center py-4">No services selected yet.</p>
+                        </div>
+
+                        <div class="border-t border-white/10 pt-4 mb-6">
+                            <div class="flex justify-between items-end">
+                                <span class="text-slate-400">Total Monthly</span>
+                                <span id="total-price" class="text-3xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-blue-500">
+                                    ₹0
+                                </span>
+                            </div>
+                        </div>
+
+                        <button class="w-full py-4 bg-gradient-to-r from-cyan-600 to-blue-600 hover:from-cyan-500 hover:to-blue-500 text-white font-bold rounded-lg shadow-lg shadow-cyan-500/20 transition-all hover:scale-[1.02] active:scale-95 flex items-center justify-center gap-2 group">
+                            Get This Plan <i data-lucide="arrow-right" class="group-hover:translate-x-1 transition-transform"></i>
+                        </button>
+                        
+                        <p class="text-center text-xs text-slate-500 mt-4">
+                            <span class="text-red-400 font-bold">*</span> Limited onboarding slots available.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="bg-slate-950 border-t border-white/5 pt-16 pb-8 relative z-10">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-4 gap-12 mb-12">
+                <div class="col-span-1 md:col-span-2">
+                    <div class="flex items-center gap-2 mb-6">
+                        <div class="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-600 rounded flex items-center justify-center">
+                            <span class="font-bold text-white">D</span>
+                        </div>
+                        <span class="text-xl font-bold text-white">DMARKETER</span>
+                    </div>
+                    <p class="text-slate-400 mb-6 max-w-sm">
+                        We don't just post content; we build digital ecosystems that generate revenue. 
+                        Odisha's premium digital growth partner.
+                    </p
