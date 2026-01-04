@@ -3,200 +3,430 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DMARKETER | Digital Growth Agency</title>
-    
+    <title>DMARKETER | Intelligent Pricing Matrix</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <script src="https://unpkg.com/lucide@latest"></script>
-
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    fontFamily: { sans: ['Inter', 'sans-serif'] },
-                    colors: { slate: { 950: '#020617' } },
-                    animation: {
-                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
-                        'blob': 'blob 7s infinite',
-                    },
-                    keyframes: {
-                        fadeInUp: {
-                            '0%': { opacity: '0', transform: 'translateY(20px)' },
-                            '100%': { opacity: '1', transform: 'translateY(0)' },
-                        },
-                        blob: {
-                            '0%': { transform: 'translate(0px, 0px) scale(1)' },
-                            '33%': { transform: 'translate(30px, -50px) scale(1.1)' },
-                            '66%': { transform: 'translate(-20px, 20px) scale(0.9)' },
-                            '100%': { transform: 'translate(0px, 0px) scale(1)' },
-                        }
-                    }
-                }
-            }
-        }
-    </script>
-
+    <script defer src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
     <style>
-        body { background-color: #020617; color: #e2e8f0; }
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: #0f172a; }
-        ::-webkit-scrollbar-thumb { background: #334155; border-radius: 4px; }
-        ::-webkit-scrollbar-thumb:hover { background: #06b6d4; }
-
-        input[type=range] { -webkit-appearance: none; width: 100%; background: transparent; }
-        input[type=range]::-webkit-slider-thumb {
-            -webkit-appearance: none; height: 20px; width: 20px; border-radius: 50%;
-            background: #22d3ee; cursor: pointer; margin-top: -8px;
-            box-shadow: 0 0 15px rgba(34, 211, 238, 0.4); border: 2px solid #020617;
+        body {
+            background-color: #05070a;
+            color: #ffffff;
+            font-family: 'Inter', sans-serif;
         }
-        input[type=range]::-webkit-slider-runnable-track { width: 100%; height: 4px; cursor: pointer; background: #1e293b; border-radius: 2px; }
-        .glow-text { text-shadow: 0 0 30px rgba(6,182,212,0.3); }
+        /* Custom Scrollbar for sleek look */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: #0f121a; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+
+        .glow-border {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .glow-border:hover {
+            box-shadow: 0 0 25px rgba(99, 102, 241, 0.15);
+            border-color: rgba(99, 102, 241, 0.5);
+        }
+        .gradient-text {
+            background: linear-gradient(90deg, #5eead4, #6366f1, #d946ef);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .bg-glass {
+            background: rgba(15, 18, 26, 0.6);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        
+        /* Custom Range Slider Styling */
+        input[type=range] {
+            -webkit-appearance: none;
+            background: transparent;
+        }
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 16px;
+            width: 16px;
+            border-radius: 50%;
+            background: #22d3ee;
+            cursor: pointer;
+            margin-top: -6px;
+            box-shadow: 0 0 10px rgba(34, 211, 238, 0.5);
+        }
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: #374151;
+            border-radius: 2px;
+        }
     </style>
 </head>
-<body class="antialiased overflow-x-hidden">
+<body x-data="appData()">
 
-    <div class="fixed inset-0 z-0 pointer-events-none overflow-hidden">
-        <div class="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[120px] animate-blob"></div>
-        <div class="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-blue-600/20 rounded-full blur-[120px] animate-blob"></div>
-    </div>
-
-    <nav class="fixed top-0 left-0 right-0 z-50 py-5 bg-slate-950/50 backdrop-blur-md border-b border-white/5">
-        <div class="container mx-auto px-6 flex justify-between items-center">
-            <div class="flex items-center gap-2">
-                <div class="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-600 rounded flex items-center justify-center">
-                    <span class="font-bold text-white">D</span>
-                </div>
-                <span class="text-xl font-bold tracking-wider text-white">DMARKETER</span>
+    <nav class="fixed w-full z-50 bg-[#05070a]/90 backdrop-blur-md border-b border-white/5">
+        <div class="flex justify-between items-center p-4 max-w-7xl mx-auto">
+            <div class="text-xl font-bold tracking-tighter flex items-center gap-2 cursor-pointer" @click="window.scrollTo(0,0)">
+                <span class="text-cyan-500">🚀</span> DMARKETER
             </div>
-            <div class="hidden md:flex items-center gap-8 text-sm font-medium uppercase tracking-wide">
-                <a href="#plans" class="text-slate-300 hover:text-cyan-400">Plans</a>
-                <a href="#builder" class="text-slate-300 hover:text-cyan-400">Builder</a>
+            <div class="hidden md:flex gap-8 text-xs font-semibold text-gray-400">
+                <button @click="scrollTo('cores')" class="hover:text-white transition">STRATEGY CORES</button>
+                <button @click="scrollTo('config')" class="hover:text-white transition">CUSTOM BUILD</button>
+                <a href="https://wa.me/918144829015" class="text-lg hover:text-cyan-400">💬</a>
             </div>
         </div>
     </nav>
 
-    <section id="plans" class="pt-32 pb-20 relative z-10">
-        <div class="container mx-auto px-6 text-center mb-16">
-            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Fixed Monthly <span class="text-blue-500">Power Plans</span></h2>
-            <p class="text-slate-400">Proven strategies packaged for instant impact.</p>
+    <header class="text-center pt-32 pb-20 px-4 relative overflow-hidden">
+        <div class="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[400px] bg-indigo-600/20 rounded-full blur-[100px] -z-10"></div>
+
+        <span class="text-[10px] border border-cyan-500/30 text-cyan-400 px-3 py-1 rounded-full tracking-widest uppercase mb-6 inline-block bg-cyan-900/10">Dmarketer Exclusive</span>
+        <h1 class="text-5xl md:text-7xl font-extrabold mb-6 tracking-tight leading-tight">
+            FUTURE OF <br> <span class="gradient-text">DIGITAL GROWTH</span>
+        </h1>
+        <p class="text-gray-400 max-w-xl mx-auto mb-10 text-sm leading-relaxed">
+            Configure your growth engine with DMARKETER's intelligent pricing matrix. <br>
+            Real-time calculation. Instant deployment.
+        </p>
+        <div class="flex flex-col md:flex-row justify-center gap-4">
+            <button @click="scrollTo('cores')" class="bg-white text-black px-8 py-3 rounded-full font-bold text-xs hover:bg-gray-200 transition shadow-[0_0_20px_rgba(255,255,255,0.3)]">
+                Select Core Plan →
+            </button>
+            <button @click="scrollTo('config')" class="border border-gray-700 bg-gray-900/50 px-8 py-3 rounded-full font-bold text-xs hover:bg-gray-800 transition backdrop-blur-sm">
+                Build Custom Stack
+            </button>
         </div>
-        
-        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-8 max-w-6xl">
-            <div class="bg-slate-900/40 border border-white/10 rounded-2xl p-8 flex flex-col hover:border-white/20 transition-all">
-                <h3 class="text-xl font-semibold text-white mb-2">Basic Plan</h3>
-                <div class="text-3xl font-bold text-white mb-6">₹15,000<span class="text-sm text-slate-500 font-normal">/mo</span></div>
-                <ul class="space-y-4 mb-8 flex-1 text-sm text-slate-300">
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 8 Social Media Posts</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 4 Reel Creations</li>
+    </header>
+
+    <section id="cores" class="max-w-7xl mx-auto px-6 py-20 border-t border-white/5">
+        <div class="text-center mb-16">
+            <h2 class="text-3xl font-bold mb-2">STRATEGIC CORES</h2>
+            <p class="text-gray-500 text-sm">Pre-configured modules optimized for rapid scaling.</p>
+        </div>
+
+        <div class="grid md:grid-cols-3 gap-6">
+            
+            <div class="glow-border bg-glass p-6 rounded-2xl flex flex-col group hover:-translate-y-1 transition duration-300">
+                <h3 class="font-bold text-lg mb-1">BASIC PLAN</h3>
+                <p class="text-[10px] text-gray-400 mb-4 bg-gray-800 w-fit px-2 py-0.5 rounded">Calculated Value: ₹19,500+</p>
+                <div class="text-3xl font-bold mb-6 text-cyan-400">₹15,000 <span class="text-sm text-gray-500 font-normal">/Month</span></div>
+                
+                <div class="text-[10px] uppercase text-gray-500 font-bold tracking-wider mb-3 border-b border-gray-800 pb-2">Includes:</div>
+                <ul class="text-xs text-gray-400 space-y-3 mb-8 flex-grow">
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Social Media (8 Posts)</span>
+                        <span class="text-gray-600">₹4k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Reel Creation (4 Reels)</span>
+                        <span class="text-gray-600">₹6k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Creative Direction & Hooks</span>
+                        <span class="text-gray-600">₹2k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">GBP Optimization</span>
+                        <span class="text-gray-600">₹2.5k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">WhatsApp & Profile Opt</span>
+                        <span class="text-gray-600">₹1.2k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Monthly Performance Report</span>
+                        <span class="text-gray-600">₹1.8k</span>
+                    </li>
                 </ul>
-                <button onclick="window.open('https://wa.me/6372296248?text=I%20want%20to%20start%20the%20Basic%20Plan')" class="w-full py-3 bg-slate-800 rounded-lg font-bold hover:bg-slate-700 transition-colors">Start Basic</button>
+                <button @click="sendPackage('BASIC PLAN', 15000)" class="w-full py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-cyan-500/20 hover:border-cyan-500/50 hover:text-cyan-400 transition text-xs font-semibold">Choose Plan</button>
             </div>
 
-            <div class="bg-slate-900/40 border-2 border-blue-500 rounded-2xl p-8 flex flex-col transform md:scale-105 z-10 relative">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-blue-500 text-white text-[10px] font-bold px-3 py-1 rounded-full">POPULAR</div>
-                <h3 class="text-xl font-semibold text-white mb-2">Essential Plan</h3>
-                <div class="text-3xl font-bold text-white mb-6">₹22,000<span class="text-sm text-slate-500 font-normal">/mo</span></div>
-                <ul class="space-y-4 mb-8 flex-1 text-sm text-slate-300">
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 12 Social Media Posts</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 8 Reel Creations</li>
+            <div class="glow-border bg-glass p-6 rounded-2xl border-indigo-500/30 ring-1 ring-indigo-500/20 shadow-[0_0_30px_rgba(99,102,241,0.1)] relative">
+                <div class="absolute top-0 right-0 bg-indigo-600 text-[10px] px-2 py-1 rounded-bl-lg rounded-tr-lg font-bold">RECOMMENDED</div>
+                <h3 class="font-bold text-lg mb-1">ESSENTIAL PLAN</h3>
+                <p class="text-[10px] text-gray-300 mb-4 bg-indigo-900/50 w-fit px-2 py-0.5 rounded">Calculated Value: ₹29,500+</p>
+                <div class="text-3xl font-bold mb-6 text-indigo-400">₹22,000 <span class="text-sm text-gray-500 font-normal">/Month</span></div>
+                
+                <div class="text-[10px] uppercase text-gray-500 font-bold tracking-wider mb-3 border-b border-gray-800 pb-2">Includes:</div>
+                <ul class="text-xs text-gray-400 space-y-3 mb-8">
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-white font-medium">Social Media (12 Posts)</span>
+                        <span class="text-gray-500">₹5k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-white font-medium">Reel Creation (8 Reels)</span>
+                        <span class="text-gray-500">₹10k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-white font-medium">Reel Strategy & Trends</span>
+                        <span class="text-gray-500">₹3k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">GBP (Weekly)</span>
+                        <span class="text-gray-500">₹3.5k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Paid Ads Setup</span>
+                        <span class="text-gray-500">₹4k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Lead Flow Optimization</span>
+                        <span class="text-gray-500">₹2.5k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Detailed Monthly Report</span>
+                        <span class="text-gray-500">₹1.5k</span>
+                    </li>
                 </ul>
-                <button onclick="window.open('https://wa.me/6372296248?text=I%20want%20to%20start%20the%20Essential%20Plan')" class="w-full py-3 bg-blue-600 rounded-lg font-bold hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/20">Choose Essential</button>
+                <button @click="sendPackage('ESSENTIAL PLAN', 22000)" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition text-xs font-bold shadow-lg shadow-indigo-500/25">Choose Plan</button>
             </div>
 
-            <div class="bg-slate-900/40 border border-white/10 rounded-2xl p-8 flex flex-col hover:border-white/20 transition-all">
-                <h3 class="text-xl font-semibold text-white mb-2">Professional Plan</h3>
-                <div class="text-3xl font-bold text-white mb-6">₹42,000<span class="text-sm text-slate-500 font-normal">/mo</span></div>
-                <ul class="space-y-4 mb-8 flex-1 text-sm text-slate-300">
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> 14 Social Posts & 14 Reels</li>
-                    <li class="flex items-center gap-2"><i data-lucide="check" class="w-4 h-4 text-cyan-400"></i> Meta Ads Management</li>
+            <div class="glow-border bg-glass p-6 rounded-2xl flex flex-col group hover:-translate-y-1 transition duration-300">
+                <h3 class="font-bold text-lg mb-1">PROFESSIONAL PLAN</h3>
+                <p class="text-[10px] text-gray-400 mb-4 bg-gray-800 w-fit px-2 py-0.5 rounded">Calculated Value: ₹65,000+</p>
+                <div class="text-3xl font-bold mb-6 text-purple-400">₹42,000 <span class="text-sm text-gray-500 font-normal">/Month</span></div>
+                
+                <div class="text-[10px] uppercase text-gray-500 font-bold tracking-wider mb-3 border-b border-gray-800 pb-2">Includes:</div>
+                <ul class="text-xs text-gray-400 space-y-3 mb-8">
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Social Media (14 Posts)</span>
+                        <span class="text-gray-600">₹6k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">High-Qual Reels (14 Reels)</span>
+                        <span class="text-gray-600">₹18k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Adv Strategy + Storytelling</span>
+                        <span class="text-gray-600">₹6k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Meta Ads (Lead Focused)</span>
+                        <span class="text-gray-600">₹10k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">GBP (Authority Level)</span>
+                        <span class="text-gray-600">₹5k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2">
+                        <span class="text-gray-300">Lead Handling + Tracking</span>
+                        <span class="text-gray-600">₹4k</span>
+                    </li>
+                    <li class="flex justify-between items-start gap-2 bg-purple-900/20 p-2 rounded border border-purple-500/20">
+                        <span class="text-purple-300 font-bold">BONUS: 3 Influencer Videos</span>
+                        <span class="text-purple-400 font-bold">FREE</span>
+                    </li>
                 </ul>
-                <button onclick="window.open('https://wa.me/8144829015?text=I%20want%20to%20start%20the%20Pro%20Plan')" class="w-full py-3 bg-gradient-to-r from-purple-600 to-pink-600 rounded-lg font-bold hover:opacity-90 transition-colors">Go Professional</button>
+                <button @click="sendPackage('PROFESSIONAL PLAN', 42000)" class="w-full py-3 bg-white/5 border border-white/10 rounded-lg hover:bg-purple-500/20 hover:border-purple-500/50 hover:text-purple-400 transition text-xs font-semibold">Choose Plan</button>
             </div>
         </div>
     </section>
 
-    <section id="builder" class="py-20 relative z-10 border-t border-white/5">
-        <div class="container mx-auto px-6 max-w-6xl">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Build Your Own <span class="text-cyan-400">Custom Plan</span></h2>
-                <p class="text-slate-400">Select exactly what you need. Pay only for what you get.</p>
-            </div>
+    <section id="config" class="max-w-7xl mx-auto px-6 py-20">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold mb-2">SYSTEM CONFIGURATION</h2>
+            <p class="text-gray-500 text-sm">Select components and adjust quantities to estimate your investment.</p>
+        </div>
 
-            <div class="grid lg:grid-cols-3 gap-8 items-start">
-                <div class="lg:col-span-2 space-y-6">
-                    <div class="bg-slate-900/60 border border-white/10 rounded-2xl p-8">
-                        <div class="flex justify-between items-center mb-8">
-                            <h3 class="text-xl font-bold text-white">Social Media Posts</h3>
-                            <span id="post-count" class="text-3xl font-bold text-cyan-400">28</span>
-                        </div>
-                        <input type="range" id="post-slider" min="0" max="60" value="28">
-                    </div>
-
-                    <div class="bg-slate-900/60 border border-white/10 rounded-2xl p-8">
-                        <div class="flex justify-between items-center mb-8">
-                            <h3 class="text-xl font-bold text-white">Reel Creation</h3>
-                            <span id="reel-count" class="text-3xl font-bold text-cyan-400">26</span>
-                        </div>
-                        <input type="range" id="reel-slider" min="0" max="60" value="26">
-                    </div>
+        <div class="grid lg:grid-cols-4 gap-8">
+            
+            <div class="lg:col-span-3">
+                <div class="flex flex-wrap gap-2 mb-8">
+                    <template x-for="cat in categories">
+                        <button @click="activeFilter = cat" 
+                                class="px-4 py-1.5 rounded-full border text-[10px] font-semibold transition duration-200"
+                                :class="activeFilter === cat ? 'bg-cyan-500 border-cyan-500 text-black' : 'border-gray-800 text-gray-400 hover:border-gray-600'"
+                                x-text="cat"></button>
+                    </template>
                 </div>
 
-                <div class="bg-slate-900 border border-cyan-500/20 rounded-2xl p-8 shadow-2xl sticky top-24">
-                    <h3 class="text-xl font-bold text-white mb-8 border-b border-white/5 pb-4">Your Plan Summary</h3>
-                    <div id="summary-items" class="space-y-4 mb-8"></div>
-                    <div class="border-t border-white/10 pt-6 mb-8 flex justify-between items-end">
-                        <span class="text-slate-400 font-medium">Total Monthly</span>
-                        <span id="total-price" class="text-3xl font-bold text-white">₹98,600</span>
+                <div class="grid md:grid-cols-2 gap-4">
+                    <template x-for="(item, index) in filteredModules" :key="item.id">
+                        <div class="p-5 bg-gray-900/40 border rounded-xl transition-all duration-300"
+                             :class="item.selected ? 'border-cyan-500/60 bg-cyan-900/10 shadow-[0_0_15px_rgba(6,182,212,0.1)]' : 'border-white/5 hover:border-white/20'">
+                            
+                            <div class="flex justify-between items-start mb-4">
+                                <div class="flex items-center gap-3 cursor-pointer" @click="toggleItem(item.id)">
+                                    <div class="w-5 h-5 border rounded flex items-center justify-center transition-colors duration-200" 
+                                         :class="item.selected ? 'bg-cyan-500 border-cyan-500' : 'border-gray-600 bg-gray-800'">
+                                        <span x-show="item.selected" class="text-black text-xs font-bold">✓</span>
+                                    </div>
+                                    <div>
+                                        <div class="text-xs font-bold text-gray-200" x-text="item.name"></div>
+                                        <div class="text-[9px] text-gray-500 uppercase tracking-widest" x-text="item.category"></div>
+                                    </div>
+                                </div>
+                                <div class="text-right">
+                                    <div class="text-sm font-bold text-cyan-400" x-text="'₹' + (item.price * item.qty).toLocaleString()"></div>
+                                    <div class="text-[9px] text-gray-600" x-text="'₹' + item.price + '/unit'"></div>
+                                </div>
+                            </div>
+
+                            <!-- Keep section present for all modules, but show slider ONLY for the 4 video modules -->
+                            <div x-show="item.selected" x-transition.opacity.duration.300ms class="border-t border-white/5 pt-3">
+                                <div class="flex justify-between items-center mb-2">
+                                    <span class="text-[10px] text-gray-400 uppercase font-semibold">Quantity</span>
+                                    <span class="text-xs font-mono text-cyan-300 bg-cyan-900/30 px-2 py-0.5 rounded border border-cyan-500/30" x-text="item.qty"></span>
+                                </div>
+
+                                <!-- Slider only shown when hasSlider is true -->
+                                <div x-show="item.hasSlider">
+                                    <input type="range" min="1" max="20" step="1" 
+                                           x-model="item.qty"
+                                           class="w-full h-1 bg-gray-700 rounded-lg appearance-none cursor-pointer">
+                                    <div class="flex justify-between text-[8px] text-gray-600 mt-1 font-mono">
+                                        <span>1</span>
+                                        <span>20</span>
+                                    </div>
+                                </div>
+
+                                <!-- For modules without slider, keep a visible fixed-quantity note (preserves all code) -->
+                                <div x-show="!item.hasSlider" class="text-[10px] text-gray-500 mt-2">
+                                    Quantity is fixed for this module.
+                                </div>
+                            </div>
+
+                        </div>
+                    </template>
+                </div>
+            </div>
+
+            <div class="lg:col-span-1">
+                <div class="sticky top-24 bg-[#0f121a] border border-gray-800 p-6 rounded-2xl shadow-2xl relative overflow-hidden">
+                    <div class="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-cyan-500 to-indigo-500"></div>
+
+                    <div class="flex items-center gap-2 mb-6">
+                        <span class="text-cyan-500">⚙️</span>
+                        <h4 class="font-bold text-sm tracking-wide">STACK SUMMARY</h4>
                     </div>
-                    <button onclick="sendWhatsApp()" class="w-full py-4 bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-extrabold rounded-xl transition-all shadow-lg shadow-cyan-500/20 active:scale-95">
-                        Confirm Plan
+                    
+                    <div x-show="selectedCount === 0" class="min-h-[150px] flex flex-col items-center justify-center text-gray-600 border border-dashed border-gray-800 rounded-lg mb-6">
+                        <span class="text-2xl mb-2 opacity-50">⚡</span>
+                        <p class="text-[10px]">Select modules to configure</p>
+                    </div>
+
+                    <div x-show="selectedCount > 0" class="min-h-[150px] max-h-[300px] overflow-y-auto mb-6 pr-2 custom-scrollbar">
+                        <ul class="space-y-3">
+                            <template x-for="item in modules" :key="item.id">
+                                <li x-show="item.selected" class="text-[11px] border-b border-gray-800 pb-2 last:border-0">
+                                    <div class="flex justify-between text-gray-300 font-medium">
+                                        <span x-text="item.name"></span>
+                                        <span class="text-cyan-500" x-text="'₹' + (item.price * item.qty).toLocaleString()"></span>
+                                    </div>
+                                    <div class="flex justify-between text-gray-600 mt-1">
+                                        <span x-text="'Qty: ' + item.qty"></span>
+                                        <button @click="toggleItem(item.id)" class="text-[9px] text-red-500 hover:text-red-400">REMOVE</button>
+                                    </div>
+                                </li>
+                            </template>
+                        </ul>
+                    </div>
+
+                    <div class="border-t border-gray-700 pt-4 mb-6">
+                        <div class="flex justify-between items-end">
+                            <span class="text-[10px] text-gray-400 uppercase font-bold">Estimated Monthly</span>
+                            <div class="text-right">
+                                <span class="block text-2xl font-extrabold text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-indigo-400" x-text="'₹' + grandTotal.toLocaleString()"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button @click="sendToWhatsApp()" 
+                            class="w-full py-4 bg-gradient-to-r from-cyan-600 to-indigo-600 text-white rounded-xl font-bold text-xs uppercase tracking-wider shadow-lg shadow-cyan-500/20 hover:scale-[1.02] active:scale-[0.98] transition flex justify-center items-center gap-2">
+                        <span>Initialize Project</span>
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                    </button>
+                    
+                    <button @click="resetConfig()" class="w-full mt-4 text-[10px] text-gray-500 hover:text-white transition flex justify-center items-center gap-1">
+                        <span>↺</span> Reset Configuration
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
+    <footer class="text-center py-10 border-t border-white/5 text-[10px] text-gray-600">
+        &copy; 2025 DMARKETER. All rights reserved.
+    </footer>
+
     <script>
-        const RATE_POST = 1200;
-        const RATE_REEL = 2500;
+        function appData() {
+            return {
+                activeFilter: 'ALL',
+                categories: ['ALL', 'SOCIAL MEDIA', 'CREATIVE', 'VIDEO', 'CONTENT', 'ADS', 'WEB'],
+                modules: [
+                    { id: 1, name: 'Social Media Account Setup', category: 'SOCIAL MEDIA', price: 500, qty: 1, selected: false, hasSlider: false },
+                    { id: 2, name: 'Profile Optimization', category: 'SOCIAL MEDIA', price: 1500, qty: 1, selected: false, hasSlider: false },
+                    { id: 3, name: 'Bio Writing & CTA', category: 'SOCIAL MEDIA', price: 300, qty: 1, selected: false, hasSlider: false },
+                    { id: 4, name: 'Static Image Creative', category: 'CREATIVE', price: 600, qty: 10, selected: false, hasSlider: false },
+                    { id: 5, name: 'Carousel Creative', category: 'CREATIVE', price: 900, qty: 4, selected: false, hasSlider: false },
+                    { id: 6, name: 'Story Design', category: 'CREATIVE', price: 400, qty: 10, selected: false, hasSlider: false },
+                    { id: 7, name: 'Reel Editing (Basic)', category: 'VIDEO', price: 1000, qty: 5, selected: false, hasSlider: true },
+                    { id: 8, name: 'Reel Editing (Trend + Hook)', category: 'VIDEO', price: 1500, qty: 4, selected: false, hasSlider: true },
+                    { id: 9, name: 'Reel Shooting (Camera)', category: 'VIDEO', price: 5000, qty: 1, selected: false, hasSlider: true },
+                    { id: 10, name: 'Long Video Edit (5min)', category: 'VIDEO', price: 2000, qty: 2, selected: false, hasSlider: true },
+                    { id: 11, name: 'Blog/Article Writing', category: 'CONTENT', price: 800, qty: 4, selected: false, hasSlider: false },
+                    { id: 12, name: 'Ad Campaign Setup', category: 'ADS', price: 2500, qty: 1, selected: false, hasSlider: false },
+                    { id: 13, name: 'Landing Page Design', category: 'WEB', price: 5000, qty: 1, selected: false, hasSlider: false }
+                ],
+                
+                get filteredModules() {
+                    if (this.activeFilter === 'ALL') return this.modules;
+                    return this.modules.filter(m => m.category === this.activeFilter);
+                },
 
-        const postSlider = document.getElementById('post-slider');
-        const reelSlider = document.getElementById('reel-slider');
-        const postCount = document.getElementById('post-count');
-        const reelCount = document.getElementById('reel-count');
-        const summaryItems = document.getElementById('summary-items');
-        const totalPrice = document.getElementById('total-price');
+                get grandTotal() {
+                    return this.modules.reduce((sum, item) => {
+                        return item.selected ? sum + (item.price * item.qty) : sum;
+                    }, 0);
+                },
 
-        function calculate() {
-            const posts = parseInt(postSlider.value);
-            const reels = parseInt(reelSlider.value);
-            const costPosts = posts * RATE_POST;
-            const costReels = reels * RATE_REEL;
-            const total = costPosts + costReels;
+                get selectedCount() {
+                    return this.modules.filter(m => m.selected).length;
+                },
 
-            postCount.textContent = posts;
-            reelCount.textContent = reels;
+                toggleItem(id) {
+                    const item = this.modules.find(m => m.id === id);
+                    item.selected = !item.selected;
+                    // preserve original qty defaults; do not force-change qty here (keeps all code behavior)
+                },
 
-            let html = '';
-            if (posts > 0) html += `<div class="flex justify-between text-sm"><span class="text-slate-400">${posts} Posts</span><span class="text-white">₹${costPosts.toLocaleString()}</span></div>`;
-            if (reels > 0) html += `<div class="flex justify-between text-sm"><span class="text-slate-400">${reels} Reels</span><span class="text-white">₹${costReels.toLocaleString()}</span></div>`;
+                scrollTo(id) {
+                    document.getElementById(id).scrollIntoView({ behavior: 'smooth' });
+                },
 
-            summaryItems.innerHTML = html || '<p class="text-slate-500 text-sm italic">Adjust sliders...</p>';
-            totalPrice.textContent = `₹${total.toLocaleString()}`;
+                resetConfig() {
+                    this.modules.forEach(m => {
+                        m.selected = false;
+                        m.qty = 1;
+                    });
+                },
+
+                sendToWhatsApp() {
+                    if (this.selectedCount === 0) {
+                        alert("Please select at least one module.");
+                        return;
+                    }
+
+                    let message = "*New Custom Plan Request* 🚀\n\n";
+                    this.modules.filter(m => m.selected).forEach(item => {
+                        message += `• ${item.name} (x${item.qty}) - ₹${(item.price * item.qty).toLocaleString()}\n`;
+                    });
+                    
+                    message += `\n*TOTAL ESTIMATE: ₹${this.grandTotal.toLocaleString()}*`;
+                    message += `\n\n------------------\nGenerated by DMARKETER Configurator`;
+
+                    const url = `https://wa.me/918144829015?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank');
+                },
+
+                sendPackage(pkgName, price) {
+                    const message = `*Plan Inquiry* 🚀\n\nI am interested in the *${pkgName}* package priced at ₹${price.toLocaleString()} / Month.\n\nPlease provide more details regarding the deliverables.`;
+                    const url = `https://wa.me/918144829015?text=${encodeURIComponent(message)}`;
+                    window.open(url, '_blank');
+                }
+            }
         }
-
-        function sendWhatsApp() {
-            const posts = postSlider.value;
-            const reels = reelSlider.value;
-            const total = totalPrice.textContent;
-            const msg = `Hello! I would like to confirm my custom marketing plan:\n\n- Social Media Posts: ${posts}\n- Reel Creation: ${reels}\n- Total Monthly: ${total}`;
-            window.open(`https://wa.me/81448 29015?text=${encodeURIComponent(msg)}`);
-        }
-
-        postSlider.addEventListener('input', calculate);
-        reelSlider.addEventListener('input', calculate);
-        calculate();
-        lucide.createIcons();
     </script>
 </body>
 </html>
